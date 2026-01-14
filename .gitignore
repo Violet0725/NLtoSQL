@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+
+.venv/
+
+# Training outputs / caches
+outputs/
+unsloth_compiled_cache/
+
+# Local DB
+sales_data.db
+
+# Local logs
+PROJECT_LOG.txt
