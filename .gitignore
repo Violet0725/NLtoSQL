@@ -12,3 +12,8 @@ sales_data.db
 
 # Local logs
 PROJECT_LOG.txt
+
+# Frontend dependencies
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
