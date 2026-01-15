@@ -2,7 +2,7 @@
 
 A complete Natural Language to SQL system using fine-tuned Llama-3-8B with Unsloth, FastAPI backend, and React frontend.
 
-## 🎯 Project Overview
+## Project Overview
 
 This project demonstrates an end-to-end NL-to-SQL pipeline:
 - **Training**: Fine-tune Llama-3-8B using Unsloth + LoRA on SQL datasets
@@ -10,7 +10,7 @@ This project demonstrates an end-to-end NL-to-SQL pipeline:
 - **Frontend**: React + Tailwind CSS interface for natural language queries
 - **Database**: SQLite database with sales data (products and sales records)
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 ┌─────────────┐     ┌──────────────┐     ┌─────────────┐     ┌─────────────┐
@@ -19,7 +19,7 @@ This project demonstrates an end-to-end NL-to-SQL pipeline:
 └─────────────┘     └──────────────┘     └─────────────┘     └─────────────┘
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 sql-project/
@@ -39,7 +39,7 @@ sql-project/
 └── README.md
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -111,7 +111,7 @@ yarn dev      # or npm run dev
 
 Open http://localhost:5173 in your browser.
 
-## 💡 Usage
+## Usage
 
 ### Example Queries
 
@@ -147,7 +147,7 @@ Open http://localhost:5173 in your browser.
 - `GET /health` - Check API status
 - `GET /schema` - Get database schema
 
-## 🔧 Technical Details
+## Technical Details
 
 ### Model Training
 
@@ -185,7 +185,7 @@ CREATE TABLE sales (
 );
 ```
 
-## 🐛 Known Limitations
+## Known Limitations
 
 1. **Model Quality**: The model was trained on generic SQL datasets, not our specific schema. Results may vary.
 2. **Training**: Only 1 epoch was used; more training would improve accuracy.
@@ -199,16 +199,16 @@ CREATE TABLE sales (
 - Add RAG for dynamic schema retrieval
 - Consider larger models (70B) if resources allow
 
-## 📊 Project Status
+## Project Status
 
-- ✅ Database: Working (20 products, 50 sales records)
-- ✅ Training: Completed (LoRA adapters saved)
-- ✅ Backend API: Working (FastAPI + model inference)
-- ✅ Frontend: Working (React + Tailwind UI)
-- ⚠️ Model quality: Needs improvement (rule-based fallback implemented)
-- ✅ End-to-end pipeline: Functional for demonstration
+- Database: Working (20 products, 50 sales records)
+- Training: Completed (LoRA adapters saved)
+- Backend API: Working (FastAPI + model inference)
+- Frontend: Working (React + Tailwind UI)
+- Model quality: Needs improvement (rule-based fallback implemented)
+- End-to-end pipeline: Functional for demonstration
 
-## 🛠️ Development
+## Development
 
 ### Adding New Rule Patterns
 
@@ -226,17 +226,17 @@ Edit `training/train.py`:
 - Change `r` for LoRA rank
 - Modify `target_modules` for different adapter placement
 
-## 📝 License
+## License
 
 This project is for educational/demonstration purposes.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - [Unsloth](https://github.com/unslothai/unsloth) for fast fine-tuning
 - [Hugging Face](https://huggingface.co/) for models and datasets
 - [FastAPI](https://fastapi.tiangolo.com/) for the backend framework
 - [React](https://react.dev/) and [Tailwind CSS](https://tailwindcss.com/) for the frontend
 
-## 📧 Contact
+## Contact
 
 For questions or issues, please open an issue on GitHub.

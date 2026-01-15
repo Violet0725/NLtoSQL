@@ -43,44 +43,38 @@ function SQLChat() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-6 py-12">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
       {/* Header */}
-      <header className="text-center mb-12">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-sm text-slate-400 mb-6">
-          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-          Powered by Llama 3 + LoRA
-        </div>
-        <h1 className="text-4xl md:text-5xl font-bold mb-4">
-          <span className="gradient-text">Ask your database</span>
-          <br />
-          <span className="text-slate-100">anything</span>
+      <header className="mb-8 border-b border-slate-700 pb-6">
+        <h1 className="text-2xl font-semibold text-slate-100 mb-2">
+          SQL Query Assistant
         </h1>
-        <p className="text-slate-400 text-lg max-w-xl mx-auto">
-          Type a question in plain English. The AI will generate SQL and fetch the results from your sales database.
+        <p className="text-sm text-slate-400">
+          Query your sales database using natural language
         </p>
       </header>
 
       {/* Input Section */}
-      <div className="glow rounded-2xl bg-slate-800/80 backdrop-blur border border-slate-700 p-6 mb-8">
-        <label className="block text-sm font-medium text-slate-400 mb-3">
-          Your question
+      <div className="bg-slate-800 border border-slate-700 rounded-lg p-5 mb-6">
+        <label className="block text-sm font-medium text-slate-300 mb-2">
+          Enter your question
         </label>
         <textarea
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="e.g., How many keyboards did we sell last month? Which region has the highest sales?"
-          className="w-full h-32 bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500 transition-all resize-none font-sans"
+          placeholder="Example: How many products do we have? What is the total sales by region?"
+          className="w-full h-28 bg-slate-900 border border-slate-600 rounded-md px-3 py-2.5 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none text-sm"
           disabled={loading}
         />
-        <div className="flex items-center justify-between mt-4">
-          <span className="text-sm text-slate-500">
-            Press <kbd className="px-1.5 py-0.5 bg-slate-700/50 rounded text-slate-400 text-xs">Ctrl</kbd> + <kbd className="px-1.5 py-0.5 bg-slate-700/50 rounded text-slate-400 text-xs">Enter</kbd> to run
+        <div className="flex items-center justify-between mt-3">
+          <span className="text-xs text-slate-500">
+            <kbd className="px-1.5 py-0.5 bg-slate-700 rounded text-slate-400 text-xs font-mono">Ctrl+Enter</kbd> to execute
           </span>
           <button
             onClick={handleSubmit}
             disabled={loading || !question.trim()}
-            className="px-6 py-2.5 bg-gradient-to-r from-sky-500 to-cyan-500 text-slate-900 font-semibold rounded-xl hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2"
+            className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
           >
             {loading ? (
               <>
@@ -88,15 +82,10 @@ function SQLChat() {
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                 </svg>
-                Generating...
+                Running...
               </>
             ) : (
-              <>
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-                Run Query
-              </>
+              'Run Query'
             )}
           </button>
         </div>
@@ -104,73 +93,73 @@ function SQLChat() {
 
       {/* Error Display */}
       {error && (
-        <div className="rounded-xl bg-red-500/10 border border-red-500/30 p-4 mb-8">
-          <div className="flex items-center gap-3">
-            <svg className="w-5 h-5 text-red-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="bg-red-900/20 border border-red-800 rounded-md p-4 mb-6">
+          <div className="flex items-start gap-3">
+            <svg className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <p className="text-red-300">{error}</p>
+            <div>
+              <p className="text-sm font-medium text-red-300 mb-1">Error</p>
+              <p className="text-sm text-red-400">{error}</p>
+            </div>
           </div>
         </div>
       )}
 
       {/* Results Display */}
       {result && (
-        <div className="space-y-6 animate-in fade-in duration-500">
+        <div className="space-y-4">
           {/* Generated SQL */}
-          <div className="rounded-2xl bg-slate-800/80 backdrop-blur border border-slate-700 overflow-hidden">
-            <div className="px-5 py-3 border-b border-slate-700 flex items-center justify-between">
+          <div className="bg-slate-800 border border-slate-700 rounded-lg overflow-hidden">
+            <div className="px-4 py-2.5 bg-slate-700/30 border-b border-slate-700 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <svg className="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                </svg>
-                <span className="text-sm font-medium text-slate-400">Generated SQL</span>
+                <span className="text-xs font-medium text-slate-400 uppercase tracking-wide">SQL Query</span>
               </div>
               <button
-                onClick={() => navigator.clipboard.writeText(result.generated_sql)}
-                className="text-xs text-slate-500 hover:text-slate-300 transition-colors"
+                onClick={() => {
+                  navigator.clipboard.writeText(result.generated_sql)
+                  // Simple feedback - could add toast notification
+                }}
+                className="text-xs text-slate-400 hover:text-slate-200 transition-colors"
               >
                 Copy
               </button>
             </div>
-            <div className="p-5">
-              <pre className="code-block text-cyan-400 whitespace-pre-wrap">
+            <div className="p-4">
+              <pre className="text-sm text-slate-200 font-mono whitespace-pre-wrap overflow-x-auto">
                 {result.generated_sql}
               </pre>
             </div>
           </div>
 
           {/* Results Table */}
-          <div className="rounded-2xl bg-slate-800/80 backdrop-blur border border-slate-700 overflow-hidden">
-            <div className="px-5 py-3 border-b border-slate-700 flex items-center gap-2">
-              <svg className="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-              </svg>
-              <span className="text-sm font-medium text-slate-400">
-                Results ({result.results.length} row{result.results.length !== 1 ? 's' : ''})
+          <div className="bg-slate-800 border border-slate-700 rounded-lg overflow-hidden">
+            <div className="px-4 py-2.5 bg-slate-700/30 border-b border-slate-700">
+              <span className="text-xs font-medium text-slate-400 uppercase tracking-wide">
+                Results ({result.results.length} {result.results.length === 1 ? 'row' : 'rows'})
               </span>
             </div>
             <div className="overflow-x-auto">
               {result.results.length > 0 ? (
-                <table className="w-full">
+                <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b border-slate-700">
+                    <tr className="bg-slate-700/30 border-b border-slate-700">
                       {Object.keys(result.results[0]).map((col) => (
                         <th
                           key={col}
-                          className="px-5 py-3 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider"
+                          className="px-4 py-2.5 text-left text-xs font-medium text-slate-400 uppercase tracking-wide"
                         >
                           {col}
                         </th>
                       ))}
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-700/50">
+                  <tbody className="divide-y divide-slate-700">
                     {result.results.map((row, idx) => (
-                      <tr key={idx} className="hover:bg-slate-700/30 transition-colors">
+                      <tr key={idx} className="hover:bg-slate-700/50 transition-colors">
                         {Object.values(row).map((val, i) => (
-                          <td key={i} className="px-5 py-3 text-sm text-slate-100 whitespace-nowrap">
-                            {val !== null ? String(val) : <span className="text-slate-500 italic">null</span>}
+                          <td key={i} className="px-4 py-2.5 text-slate-200 whitespace-nowrap">
+                            {val !== null ? String(val) : <span className="text-slate-500">—</span>}
                           </td>
                         ))}
                       </tr>
@@ -178,7 +167,7 @@ function SQLChat() {
                   </tbody>
                 </table>
               ) : (
-                <div className="px-5 py-8 text-center text-slate-500">
+                <div className="px-4 py-8 text-center text-sm text-slate-500">
                   No results returned
                 </div>
               )}
@@ -186,15 +175,6 @@ function SQLChat() {
           </div>
         </div>
       )}
-
-      {/* Footer */}
-      <footer className="mt-16 text-center text-sm text-slate-500">
-        <p>
-          NL-to-SQL Demo · Fine-tuned with{' '}
-          <span className="text-slate-400">Unsloth</span> +{' '}
-          <span className="text-slate-400">LoRA</span>
-        </p>
-      </footer>
     </div>
   )
 }
